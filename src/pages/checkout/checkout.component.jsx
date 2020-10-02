@@ -30,11 +30,13 @@ const CheckoutPage = ({ cartItems, total }) => (
             cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem} />)
         }
         <div className="total">TOTAL: {total}</div>
+
         <div className="test-warning">
             *Please use the following test credit card for payments*
             <br />
             Number: 4242424242424242    CVC: Any 3 digits   Date: Any future date
         </div>
+        
         <StripeCheckoutButton price={total} />
     </div>
 )
