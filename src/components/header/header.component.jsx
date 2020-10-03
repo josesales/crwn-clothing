@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from "react-redux";
@@ -9,36 +7,37 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { createStructuredSelector } from "reselect";
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from "./header.styles";
 
 const Header = ({ currentUser, hidden }) => (
 
-    <div className="header">
-        <Link to="/" className="logo-container">
+    <HeaderContainer>
+        <LogoContainer to="/" >
             <Logo className="logo"></Logo>
-        </Link>
-        <div className="options">
-            <Link to="/shop" className="option">
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to="/shop">
                 SHOP
-            </Link>
-            <Link to="/shop" className="option">
+            </OptionLink>
+            <OptionLink to="/shop">
                 CONTACT
-            </Link>
+            </OptionLink>
             {
                 currentUser ?
-                    <div className="option" onClick={() => auth.signOut()}>
+                    <OptionLink as='div' onClick={() => auth.signOut()}>
                         SIGN OUT
-                    </div>
+                    </OptionLink>
                     :
-                    <Link to="/signin" className="option">
+                    <OptionLink to="/signin">
                         SIGN IN
-                    </Link>
+                    </OptionLink>
             }
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {
             hidden ? null : <CartDropdown />
         }
-    </div>
+    </HeaderContainer>
 )
 
 const mapStateToProps =  createStructuredSelector({
